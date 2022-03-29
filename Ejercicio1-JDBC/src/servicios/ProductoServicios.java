@@ -37,7 +37,7 @@ public class ProductoServicios {
 
     }
 
-    public void printProductos() throws Exception{
+    public void printProductos() throws Exception {
         try {
             List<Producto> productos = productoDAO.getProducto();
             if (productos.isEmpty()) {
@@ -55,4 +55,68 @@ public class ProductoServicios {
 
         }
     }
+
+    public void printProductosNombreyPrecio() throws Exception {
+        try {
+            List<Producto> productos = productoDAO.getProducto();
+            if (productos.isEmpty()) {
+                throw new Exception("No existe productos");
+            } else {
+                System.out.println("Lista de productos");
+                System.out.printf("%-35s%-35s\n", "Nombre", "Precio");
+                for (Producto producto : productos) {
+                    System.out.printf("%-35s%-35s\n", producto.getNombre(), producto.getPrecio());
+
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+
+        }
+    }
+
+    public void printProductosIntervalo() throws Exception {
+        try {
+            List<Producto> productos = productoDAO.getProducto();
+            if (productos.isEmpty()) {
+                throw new Exception("No existe productos");
+            } else {
+
+                System.out.println("Lista de productos");
+                System.out.printf("%-35s%-35s\n", "ID", "Nombre", "Precio", "CodigoFabricante");
+
+                for (Producto producto : productos) {
+                    if (producto.getPrecio() >= 120 && producto.getPrecio() <= 202) {
+                        System.out.printf("%-35s%-35s\n", producto.getNombre(), producto.getPrecio());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+
+        }
+    }
+
+    public void printProductosPortatiles() throws Exception {
+        try {
+            List<Producto> productos = productoDAO.getProducto();
+            if (productos.isEmpty()) {
+                throw new Exception("No existe productos");
+            } else {
+
+                System.out.println("Lista de productos");
+                System.out.printf("%-10s%-35s%-15s%-20s\n", "ID", "Nombre", "Precio", "codigoFabricante");
+
+                for (Producto producto : productos) {
+                    if (producto.getNombre().contains("Portátil")) {
+                        System.out.printf("%-10s%-35s%-15s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+
+        }
+    }
+    
 }
