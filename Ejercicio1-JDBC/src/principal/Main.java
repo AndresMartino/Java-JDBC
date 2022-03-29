@@ -43,6 +43,7 @@ public class Main {
                         break;
 
                     case 5:
+                        productoServicios.printProductosBarato();
                         break;
 
                     case 6:
@@ -67,6 +68,7 @@ public class Main {
                         break;
 
                     case 9:
+                        System.out.println("SALIENDO");
                         break;
 
                     default:
