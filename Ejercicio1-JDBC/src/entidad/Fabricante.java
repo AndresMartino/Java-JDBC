@@ -28,6 +28,11 @@ public class Fabricante {
         this.nombreFabricante = nombreFabricante;
     }
 
+    @Override
+    public String toString() {
+        return "Fabricante{" + "codigoFabricante=" + codigoFabricante + ", nombreFabricante=" + nombreFabricante + '}';
+    }
+
     
     
 }
