@@ -130,5 +130,27 @@ public class ProductoServicios {
             throw e;
         }
     }
+     public void modificarProducto(int id,String nombre, Double precio) throws Exception {
+        try {
+            if (nombre == null || nombre.trim().isEmpty()) {
+                throw new Exception("El nombre es obligatorio");
+            }
+            if (precio == null || nombre.trim().isEmpty()) {
+                throw new Exception("El precio es obligatorio");
+            }
+            
+
+            Producto producto = new Producto();
+            producto.setCodigo(id);
+            producto.setNombre(nombre);
+            producto.setPrecio(precio);
+          
+            productoDAO.modifyProducto(producto);
+        } catch (Exception e) {
+            throw e;
+
+        }
+
+    }
 }
     

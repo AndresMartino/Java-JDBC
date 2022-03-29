@@ -27,8 +27,8 @@ public class ProductoDAO extends DAO {
             if (producto == null) {
                 throw new Exception("No puede no haber productos");
             }
-            String template = "UPDATE producto SET nombre='%s', precio=%s WHERE codigo=%s";
-            String sql = String.format(template, producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());;
+            String template = "UPDATE producto SET nombre='%s', precio='%s' WHERE codigo='%s'";
+            String sql = String.format(template, producto.getCodigo(), producto.getNombre(), producto.getPrecio(),producto.getCodigoFabricante());
 
             insertModifyDelete(sql);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class ProductoDAO extends DAO {
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
                 producto.setCodigoFabricante(resultSet.getInt(4));
-                
+
                 productos.add(producto);
             }
             return productos;
@@ -78,16 +78,17 @@ public class ProductoDAO extends DAO {
         }
 
     }
-     public List<Producto> intervaloPrecio()throws Exception{
+
+    public List<Producto> intervaloPrecio() throws Exception {
         try {
             String sql = "SELECT * FROM producto WHERE precio >=120 AND precio <=202 ;";
-            
+
             queryDatabase(sql);
             List<Producto> productos = new ArrayList<>();
             Producto producto;
             while (resultSet.next()) {
                 producto = new Producto();
-                
+
                 producto.setCodigo(resultSet.getInt(1));
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
@@ -95,16 +96,16 @@ public class ProductoDAO extends DAO {
                 productos.add(producto);
             }
             return productos;
-           
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("ERROR al obtener productos");
-        }finally {
+        } finally {
             disconnectDatabase();
         }
     }
-    
-     public List<Producto> buscarPortatiles() throws Exception{
+
+    public List<Producto> buscarPortatiles() throws Exception {
         try {
             String sql = "SELECT * FROM producto WHERE nombre LIKE '%Portatil%';";
             queryDatabase(sql);
@@ -117,20 +118,20 @@ public class ProductoDAO extends DAO {
                 producto.setPrecio(resultSet.getDouble(3));
                 producto.setCodigoFabricante(resultSet.getInt(4));
                 productos.add(producto);
-                
+
             }
             return productos;
-            
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("ERROR al obtener productos");
-        }finally {
+        } finally {
             disconnectDatabase();
         }
-    
+
     }
-     public List<Producto> productoMasBarato() throws Exception{
+
+    public List<Producto> productoMasBarato() throws Exception {
         try {
             String sql = "SELECT * FROM producto order by precio asc limit 1;";
             queryDatabase(sql);
@@ -143,17 +144,17 @@ public class ProductoDAO extends DAO {
                 producto.setPrecio(resultSet.getDouble(3));
                 producto.setCodigoFabricante(resultSet.getInt(4));
                 productos.add(producto);
-                
+
             }
             return productos;
-            
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new Exception("ERROR al obtener productos");
-        }finally {
+        } finally {
             disconnectDatabase();
         }
-    
+
     }
+
 }

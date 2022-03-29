@@ -58,13 +58,19 @@ public class Main {
 
                     case 7:
                         
-                        System.out.println("Ingrese nombre del producto");
+                        System.out.println("Ingrese nombre del fabricante");
                         String nombreFab = read.next();
                         fabricanteServicios.createFabricante(nombreFab);
                         break;
 
                     case 8:
-                        
+                        System.out.println("ingrese id a modificar");
+                        int id=read.nextInt();
+                        System.out.println("ingrese nuevo nombre");
+                        String nombreNew=read.next();
+                        System.out.println("ingrese nuevo precio");
+                        Double precioNew=read.nextDouble();
+                        productoServicios.modificarProducto(id, nombreNew, precioNew);
                         break;
 
                     case 9:
