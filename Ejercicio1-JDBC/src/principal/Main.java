@@ -70,7 +70,7 @@ public class Main {
                         String nombreNew=read.next();
                         System.out.println("ingrese nuevo precio");
                         Double precioNew=read.nextDouble();
-                        productoServicios.modificarProducto(id, nombreNew, precioNew);
+                            productoServicios.modificarProducto(id, nombreNew, precioNew);
                         break;
 
                     case 9:

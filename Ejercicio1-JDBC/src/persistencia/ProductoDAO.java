@@ -27,8 +27,8 @@ public class ProductoDAO extends DAO {
             if (producto == null) {
                 throw new Exception("No puede no haber productos");
             }
-            String template = "UPDATE producto SET nombre='%s', precio='%s' WHERE codigo='%s'";
-            String sql = String.format(template, producto.getCodigo(), producto.getNombre(), producto.getPrecio(),producto.getCodigoFabricante());
+            String template = "UPDATE producto SET nombre='%s', precio='%s' WHERE codigo='%s';";
+            String sql = String.format(template, producto.getNombre(), producto.getPrecio(),producto.getCodigo());
 
             insertModifyDelete(sql);
         } catch (Exception e) {

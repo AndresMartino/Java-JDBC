@@ -83,7 +83,7 @@ public class ProductoServicios {
             } else {
 
                 System.out.println("Lista de productos");
-                 System.out.printf("%-10s%-35s%-15s%-20s\n", "ID", "Nombre", "Precio", "codigoFabricante");
+                System.out.printf("%-10s%-35s%-15s%-20s\n", "ID", "Nombre", "Precio", "codigoFabricante");
                 for (Producto producto : productos) {
                     System.out.printf("%-10s%-35s%-15s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
 
@@ -96,56 +96,65 @@ public class ProductoServicios {
     }
 
     public void printProductosPortatiles() throws Exception {
-         try {
+        try {
             List<Producto> productos = productoDAO.buscarPortatiles();
             if (productos.isEmpty()) {
                 throw new Exception("No existen productos");
             } else {
                 System.out.println("Lista de portatiles\n");
-                System.out.printf("%-10s%-40s%-20s%-20s\n","codigo","nombre", "precio","codigoFabricante");
+                System.out.printf("%-10s%-40s%-20s%-20s\n", "codigo", "nombre", "precio", "codigoFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-40s%-20s%-20s\n",producto.getCodigo(),producto.getNombre(),producto.getPrecio(),producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-40s%-20s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
                 }
             }
-            
+
         } catch (Exception e) {
             throw e;
         }
     }
-    
-     public void printProductosBarato() throws Exception {
-         try {
+
+    public void printProductosBarato() throws Exception {
+        try {
             List<Producto> productos = productoDAO.productoMasBarato();
             if (productos.isEmpty()) {
                 throw new Exception("No existen productos");
             } else {
                 System.out.println("Lista de portatiles\n");
-                System.out.printf("%-10s%-40s%-20s%-20s\n","codigo","nombre", "precio","codigoFabricante");
+                System.out.printf("%-10s%-40s%-20s%-20s\n", "codigo", "nombre", "precio", "codigoFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-40s%-20s%-20s\n",producto.getCodigo(),producto.getNombre(),producto.getPrecio(),producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-40s%-20s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
                 }
             }
-            
+
         } catch (Exception e) {
             throw e;
         }
     }
-     public void modificarProducto(int id,String nombre, Double precio) throws Exception {
+
+    public void modificarProducto(int id, String nombre, Double precio) throws Exception {
+        boolean band=false;
         try {
-            if (nombre == null || nombre.trim().isEmpty()) {
-                throw new Exception("El nombre es obligatorio");
+            List<Producto> productos = productoDAO.getProducto();
+            if (productos.isEmpty()) {
+                throw new Exception("No existen productos");
+            } else {
+                for (Producto producto : productos) {
+                    if (producto.getCodigo() == id) {
+                        producto.setNombre(nombre);
+                        producto.setPrecio(precio);
+                        productoDAO.modifyProducto(producto);
+                        band=true;
+                    }
+                    
+                }
+                if (!band) {
+                    System.out.println("ERROR no existe producto");
+                }
             }
-            if (precio == null || nombre.trim().isEmpty()) {
-                throw new Exception("El precio es obligatorio");
-            }
+
             
 
-            Producto producto = new Producto();
-            producto.setCodigo(id);
-            producto.setNombre(nombre);
-            producto.setPrecio(precio);
-          
-            productoDAO.modifyProducto(producto);
+            
         } catch (Exception e) {
             throw e;
 
@@ -153,4 +162,3 @@ public class ProductoServicios {
 
     }
 }
-    
