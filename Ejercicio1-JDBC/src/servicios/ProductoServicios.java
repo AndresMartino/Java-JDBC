@@ -1,5 +1,6 @@
 package servicios;
 
+import entidad.Fabricante;
 import entidad.Producto;
 import java.util.List;
 import persistencia.ProductoDAO;
@@ -12,7 +13,7 @@ public class ProductoServicios {
         productoDAO = new ProductoDAO();
     }
 
-    public void createProducto(String nombre, Double precio, Integer codigoFabricante) throws Exception {
+    public void createProducto(String nombre, Double precio, Fabricante fabricante) throws Exception {
         try {
             if (nombre == null || nombre.trim().isEmpty()) {
                 throw new Exception("El nombre es obligatorio");
@@ -20,14 +21,14 @@ public class ProductoServicios {
             if (precio == null || nombre.trim().isEmpty()) {
                 throw new Exception("El precio es obligatorio");
             }
-            if (codigoFabricante == null || nombre.trim().isEmpty()) {
+            if (fabricante == null || nombre.trim().isEmpty()) {
                 throw new Exception("El codigo del fabricante es obligatorio");
             }
 
             Producto producto = new Producto();
             producto.setNombre(nombre);
             producto.setPrecio(precio);
-            producto.setCodigoFabricante(codigoFabricante);
+            producto.setFabricante(fabricante);
 
             productoDAO.saveProducto(producto);
         } catch (Exception e) {
@@ -44,9 +45,9 @@ public class ProductoServicios {
                 throw new Exception("No existe productos");
             } else {
                 System.out.println("Lista de productos");
-                System.out.printf("%-10s%-35s%-15s%-20s\n", "ID", "Nombre", "Precio", "codigoFabricante");
+                System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", "ID", "Nombre", "Precio", "codigoFabricante","nombreFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-35s%-15s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-35s%-20s%-20s%-10s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante(),producto.getFabricante().getNombreFabricante());
 
                 }
             }
@@ -82,10 +83,10 @@ public class ProductoServicios {
                 throw new Exception("No existe productos");
             } else {
 
-                System.out.println("Lista de productos");
-                System.out.printf("%-10s%-35s%-15s%-20s\n", "ID", "Nombre", "Precio", "codigoFabricante");
+                 System.out.println("Lista de productos");
+                System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", "ID", "Nombre", "Precio", "codigoFabricante","nombreFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-35s%-15s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante(),producto.getFabricante().getNombreFabricante());
 
                 }
             }
@@ -101,10 +102,10 @@ public class ProductoServicios {
             if (productos.isEmpty()) {
                 throw new Exception("No existen productos");
             } else {
-                System.out.println("Lista de portatiles\n");
-                System.out.printf("%-10s%-40s%-20s%-20s\n", "codigo", "nombre", "precio", "codigoFabricante");
+                 System.out.println("Lista de productos");
+                System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", "ID", "Nombre", "Precio", "codigoFabricante","nombreFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-40s%-20s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante(),producto.getFabricante().getNombreFabricante());
                 }
             }
 
@@ -119,10 +120,10 @@ public class ProductoServicios {
             if (productos.isEmpty()) {
                 throw new Exception("No existen productos");
             } else {
-                System.out.println("Lista de portatiles\n");
-                System.out.printf("%-10s%-40s%-20s%-20s\n", "codigo", "nombre", "precio", "codigoFabricante");
+                 System.out.println("Lista de productos");
+                System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", "ID", "Nombre", "Precio", "codigoFabricante","nombreFabricante");
                 for (Producto producto : productos) {
-                    System.out.printf("%-10s%-40s%-20s%-20s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+                    System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante(),producto.getFabricante().getNombreFabricante());
                 }
             }
 
@@ -144,6 +145,7 @@ public class ProductoServicios {
                         producto.setPrecio(precio);
                         productoDAO.modifyProducto(producto);
                         band=true;
+                        break;
                     }
                     
                 }

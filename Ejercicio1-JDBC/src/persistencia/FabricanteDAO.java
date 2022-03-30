@@ -19,7 +19,7 @@ public class FabricanteDAO extends DAO {
     public void saveFabricante(Fabricante fabricante) throws Exception {
         try {
             if (fabricante == null) {
-                throw new Exception("No puede no haber productos");
+                throw new Exception("No puede no haber fabricantes");
             }
             String template = "INSERT INTO fabricante VALUES(null,'%s');";
             String sql = String.format(template, fabricante.getNombreFabricante());
@@ -37,8 +37,8 @@ public class FabricanteDAO extends DAO {
             if (fabricante == null) {
                 throw new Exception("No puede no haber productos");
             }
-            String template = "UPDATE producto SET nombre='%s' WHERE codigo=%s";
-            String sql = String.format(template, fabricante.getNombreFabricante());
+            String template = "UPDATE producto SET nombre='%s' WHERE codigo='%s'";
+            String sql = String.format(template, fabricante.getNombreFabricante(),fabricante.getCodigoFabricante());
 
             insertModifyDelete(sql);
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class FabricanteDAO extends DAO {
     public void deleteFabricante(Integer fabricanteId) throws Exception {
         try {
 
-            String sql = "DELETE FROM producto WHERE codigo = " + fabricanteId;
+            String sql = "DELETE FROM producto WHERE codigo = " + fabricanteId+";";
             insertModifyDelete(sql);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -1,5 +1,6 @@
 package principal;
 
+import entidad.Fabricante;
 import java.util.Locale;
 import java.util.Scanner;
 import servicios.FabricanteServicios;
@@ -10,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n").useLocale(Locale.US);
         ProductoServicios productoServicios = new ProductoServicios();
-        FabricanteServicios fabricanteServicios=new FabricanteServicios();
+        FabricanteServicios fabricanteServicios = new FabricanteServicios();
         int opc = 0;
         do {
             try {
@@ -47,17 +48,21 @@ public class Main {
                         break;
 
                     case 6:
+                        
                         System.out.println("Ingrese nombre del producto");
                         String nombre = read.next();
                         System.out.println("Ingrese precio producto");
                         Double precio = read.nextDouble();
                         System.out.println("Ingrese codigo de fabricante");
                         int codigoFabricante = read.nextInt();
-                        productoServicios.createProducto(nombre, precio, codigoFabricante);
+                        System.out.println("Ingrese nombre de fabricante");
+                        String nombreFabricante = read.next();
+                        Fabricante fabricante = new Fabricante(codigoFabricante, nombreFabricante);
+                        productoServicios.createProducto(nombre, precio, fabricante);
                         break;
 
                     case 7:
-                        
+
                         System.out.println("Ingrese nombre del fabricante");
                         String nombreFab = read.next();
                         fabricanteServicios.createFabricante(nombreFab);
@@ -65,12 +70,12 @@ public class Main {
 
                     case 8:
                         System.out.println("ingrese id a modificar");
-                        int id=read.nextInt();
+                        int id = read.nextInt();
                         System.out.println("ingrese nuevo nombre");
-                        String nombreNew=read.next();
+                        String nombreNew = read.next();
                         System.out.println("ingrese nuevo precio");
-                        Double precioNew=read.nextDouble();
-                            productoServicios.modificarProducto(id, nombreNew, precioNew);
+                        Double precioNew = read.nextDouble();
+                        productoServicios.modificarProducto(id, nombreNew, precioNew);
                         break;
 
                     case 9:

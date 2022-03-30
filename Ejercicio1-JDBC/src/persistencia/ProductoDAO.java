@@ -1,5 +1,6 @@
 package persistencia;
 
+import entidad.Fabricante;
 import entidad.Producto;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class ProductoDAO extends DAO {
                 throw new Exception("No puede no haber productos");
             }
             String template = "INSERT INTO producto VALUES(null,'%s','%s','%s');";
-            String sql = String.format(template, producto.getNombre(), producto.getPrecio(), producto.getCodigoFabricante());
+            String sql = String.format(template, producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante());
 
             insertModifyDelete(sql);
         } catch (Exception e) {
@@ -52,21 +53,25 @@ public class ProductoDAO extends DAO {
 
     public List<Producto> getProducto() throws Exception {
         try {
-            String sql = "SELECT * FROM producto;";
+            String sql = "SELECT * FROM producto INNER JOIN fabricante ON codigo_fabricante=fabricante.codigo;";
 
             queryDatabase(sql);
 
             List<Producto> productos = new ArrayList<>();
             Producto producto = null;
-
+            Fabricante fabricante=null;
             while (resultSet.next()) {
                 producto = new Producto();
+                fabricante =new Fabricante();
                 producto.setCodigo(resultSet.getInt(1));
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
-                producto.setCodigoFabricante(resultSet.getInt(4));
-
+                
+                fabricante.setCodigoFabricante(resultSet.getInt(5));
+                fabricante.setNombreFabricante(resultSet.getString(6));
+                producto.setFabricante(fabricante);
                 productos.add(producto);
+                
             }
             return productos;
         } catch (Exception e) {
@@ -81,18 +86,22 @@ public class ProductoDAO extends DAO {
 
     public List<Producto> intervaloPrecio() throws Exception {
         try {
-            String sql = "SELECT * FROM producto WHERE precio >=120 AND precio <=202 ;";
+            String sql = "SELECT * FROM producto INNER JOIN fabricante ON codigo_fabricante=fabricante.codigo WHERE precio >=120 AND precio <=202 ;";
 
             queryDatabase(sql);
             List<Producto> productos = new ArrayList<>();
-            Producto producto;
+            Producto producto=null;
+            Fabricante fabricante=null;
             while (resultSet.next()) {
                 producto = new Producto();
-
+                fabricante=new Fabricante();
                 producto.setCodigo(resultSet.getInt(1));
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
-                producto.setCodigoFabricante(resultSet.getInt(4));
+                
+                fabricante.setCodigoFabricante(resultSet.getInt(5));
+                fabricante.setNombreFabricante(resultSet.getString(6));
+                producto.setFabricante(fabricante);
                 productos.add(producto);
             }
             return productos;
@@ -107,16 +116,21 @@ public class ProductoDAO extends DAO {
 
     public List<Producto> buscarPortatiles() throws Exception {
         try {
-            String sql = "SELECT * FROM producto WHERE nombre LIKE '%Portatil%';";
+            String sql = "SELECT * FROM producto INNER JOIN fabricante ON codigo_fabricante=fabricante.codigo WHERE producto.nombre LIKE '%Portatil%';";
             queryDatabase(sql);
             List<Producto> productos = new ArrayList<>();
-            Producto producto;
+            Producto producto=null;
+            Fabricante fabricante=null;
             while (resultSet.next()) {
                 producto = new Producto();
+                fabricante=new Fabricante();
                 producto.setCodigo(resultSet.getInt(1));
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
-                producto.setCodigoFabricante(resultSet.getInt(4));
+                
+                fabricante.setCodigoFabricante(resultSet.getInt(5));
+                fabricante.setNombreFabricante(resultSet.getString(6));
+                producto.setFabricante(fabricante);
                 productos.add(producto);
 
             }
@@ -133,18 +147,22 @@ public class ProductoDAO extends DAO {
 
     public List<Producto> productoMasBarato() throws Exception {
         try {
-            String sql = "SELECT * FROM producto order by precio asc limit 1;";
+            String sql = "SELECT * FROM producto INNER JOIN fabricante ON codigo_fabricante=fabricante.codigo order by precio asc limit 1;";
             queryDatabase(sql);
             List<Producto> productos = new ArrayList<>();
-            Producto producto;
+            Producto producto=null;
+            Fabricante fabricante=null;
             while (resultSet.next()) {
                 producto = new Producto();
+                fabricante=new Fabricante();
                 producto.setCodigo(resultSet.getInt(1));
                 producto.setNombre(resultSet.getString(2));
                 producto.setPrecio(resultSet.getDouble(3));
-                producto.setCodigoFabricante(resultSet.getInt(4));
+                
+                fabricante.setCodigoFabricante(resultSet.getInt(5));
+                fabricante.setNombreFabricante(resultSet.getString(6));
+                producto.setFabricante(fabricante);
                 productos.add(producto);
-
             }
             return productos;
 

@@ -6,7 +6,9 @@ public class Fabricante {
 
     public Fabricante() {
     }
-
+    public Fabricante(String nombreFabricante) {
+             this.nombreFabricante = nombreFabricante;
+    }
     public Fabricante(int codigoFabricante, String nombreFabricante) {
         this.codigoFabricante = codigoFabricante;
         this.nombreFabricante = nombreFabricante;
