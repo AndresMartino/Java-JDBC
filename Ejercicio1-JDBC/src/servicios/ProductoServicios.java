@@ -30,7 +30,7 @@ public class ProductoServicios {
             producto.setPrecio(precio);
             producto.setFabricante(fabricante);
 
-            productoDAO.saveProducto(producto);
+            productoDAO.crear(producto);
         } catch (Exception e) {
             throw e;
 
@@ -65,6 +65,7 @@ public class ProductoServicios {
             } else {
                 System.out.println("Lista de productos");
                 System.out.printf("%-35s%-35s\n", "Nombre", "Precio");
+               
                 for (Producto producto : productos) {
                     System.out.printf("%-35s%-35s\n", producto.getNombre(), producto.getPrecio());
 
@@ -83,7 +84,7 @@ public class ProductoServicios {
                 throw new Exception("No existe productos");
             } else {
 
-                 System.out.println("Lista de productos");
+                System.out.println("Lista de productos");
                 System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", "ID", "Nombre", "Precio", "codigoFabricante","nombreFabricante");
                 for (Producto producto : productos) {
                     System.out.printf("%-10s%-35s%-15s%-20s%-10s\n", producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante(),producto.getFabricante().getNombreFabricante());
@@ -143,7 +144,7 @@ public class ProductoServicios {
                     if (producto.getCodigo() == id) {
                         producto.setNombre(nombre);
                         producto.setPrecio(precio);
-                        productoDAO.modifyProducto(producto);
+                        productoDAO.modificar(producto);
                         band=true;
                         break;
                     }

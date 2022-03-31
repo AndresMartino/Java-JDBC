@@ -51,6 +51,7 @@ public abstract class DAO {
     }
 
     protected void insertModifyDelete(String sql) throws Exception {
+       //insert to
         try {
             connectDatabase();
             statement = connection.createStatement();
@@ -71,6 +72,7 @@ public abstract class DAO {
     }
 
     protected void queryDatabase(String sql) throws Exception{
+         //sql="SELECT * FROM prodcutos;"
         try {
             connectDatabase();
             statement = connection.createStatement();

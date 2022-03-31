@@ -2,42 +2,15 @@ package persistencia;
 
 import entidad.Fabricante;
 import entidad.Producto;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ProductoDAO extends DAO {
+public class ProductoDAO extends DAO implements CRUD<Producto, Integer> {
 
-    public void saveProducto(Producto producto) throws Exception {
-        try {
-            if (producto == null) {
-                throw new Exception("No puede no haber productos");
-            }
-            String template = "INSERT INTO producto VALUES(null,'%s','%s','%s');";
-            String sql = String.format(template, producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante());
 
-            insertModifyDelete(sql);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new Exception("ERROR al guardar producto");
-        }
-
-    }
-
-    public void modifyProducto(Producto producto) throws Exception {
-        try {
-            if (producto == null) {
-                throw new Exception("No puede no haber productos");
-            }
-            String template = "UPDATE producto SET nombre='%s', precio='%s' WHERE codigo='%s';";
-            String sql = String.format(template, producto.getNombre(), producto.getPrecio(),producto.getCodigo());
-
-            insertModifyDelete(sql);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new Exception("ERROR al modificar producto");
-        }
-
-    }
 
     public void deleteProducto(Integer productoId) throws Exception {
         try {
@@ -173,6 +146,51 @@ public class ProductoDAO extends DAO {
             disconnectDatabase();
         }
 
+    }
+
+    @Override
+    public void crear(Producto producto) {
+      
+            String template = "INSERT INTO producto VALUES(null,'%s','%s','%s');";
+            String sql = String.format(template, producto.getNombre(), producto.getPrecio(), producto.getFabricante().getCodigoFabricante());
+
+        try {
+            insertModifyDelete(sql);
+        } catch (Exception ex) {
+            System.out.println("ERROR AL crear");
+        }
+    
+    }
+
+    @Override
+    public void modificar(Producto producto) {
+         try {
+            if (producto == null) {
+                throw new Exception("No puede no haber productos");
+            }
+            String template = "UPDATE producto SET nombre='%s', precio='%s' WHERE codigo='%s';";
+            String sql = String.format(template, producto.getNombre(), producto.getPrecio(),producto.getCodigo());
+
+            insertModifyDelete(sql);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            
+        }
+    }
+
+    @Override
+    public void borrarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Producto buscarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Producto> buscarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

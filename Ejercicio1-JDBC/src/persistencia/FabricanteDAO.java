@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Andrelo
  */
-public class FabricanteDAO extends DAO {
+public class FabricanteDAO extends DAO implements CRUD<Fabricante,Integer>{
 
     public void saveFabricante(Fabricante fabricante) throws Exception {
         try {
@@ -23,7 +23,7 @@ public class FabricanteDAO extends DAO {
             }
             String template = "INSERT INTO fabricante VALUES(null,'%s');";
             String sql = String.format(template, fabricante.getNombreFabricante());
-
+            //INSERT INTO fabricante VALUES(null,peron');
             insertModifyDelete(sql);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,5 +85,30 @@ public class FabricanteDAO extends DAO {
 
         }
 
+    }
+
+    @Override
+    public void crear(Fabricante entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void modificar(Fabricante entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void borrarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Fabricante buscarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Fabricante> buscarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
